@@ -163,13 +163,13 @@ public class MLCommonsClientAccessorTests extends OpenSearchTestCase {
     private ModelTensorOutput createModelTensorOutput(final Float[] output) {
         final List<ModelTensors> tensorsList = new ArrayList<>();
         final List<ModelTensor> mlModelTensorList = new ArrayList<>();
-        final ModelTensor tensor = new ModelTensor(
-            "someValue",
-            output,
-            new long[] { 1, 2 },
-            MLResultDataType.FLOAT64,
-            ByteBuffer.wrap(new byte[12])
-        );
+        final ModelTensor tensor = ModelTensor.builder()
+            .name("someValue")
+            .data(output)
+            .shape(new long[] { 1, 2 })
+            .dataType(MLResultDataType.FLOAT64)
+            .byteBuffer(ByteBuffer.wrap(new byte[12]))
+            .build();
         mlModelTensorList.add(tensor);
         final ModelTensors modelTensors = new ModelTensors(mlModelTensorList);
         tensorsList.add(modelTensors);
